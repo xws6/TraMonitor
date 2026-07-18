@@ -17,10 +17,7 @@ jobs:
 
     - name: Install MFC
       run: |
-        $installPath = &(join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe") -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
-        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
-        Start-Process $installer -ArgumentList "modify --installPath `"$installPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
-      shell: powershell
+        choco install visualstudio2022-workload-vctools --package-parameters "--add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -y
       
     - name: Run msbuild
       run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x64 -p:platformToolset=v143
@@ -57,10 +54,7 @@ jobs:
 
     - name: Install MFC
       run: |
-        $installPath = &(join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe") -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
-        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
-        Start-Process $installer -ArgumentList "modify --installPath `"$installPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
-      shell: powershell
+        choco install visualstudio2022-workload-vctools --package-parameters "--add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -y
       
     - name: Run msbuild
       run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x86 -p:platformToolset=v143
@@ -97,10 +91,7 @@ jobs:
 
     - name: Install MFC
       run: |
-        $installPath = &(join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vswhere.exe") -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
-        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
-        Start-Process $installer -ArgumentList "modify --installPath `"$installPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
-      shell: powershell
+        choco install visualstudio2022-workload-vctools --package-parameters "--add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -y
       
     - name: Run msbuild
       run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=ARM64EC -p:platformToolset=v143
