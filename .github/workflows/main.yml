@@ -17,10 +17,14 @@ jobs:
 
     - name: Install MFC
       run: |
-        choco install visualstudio2022-workload-vctools --package-parameters "--add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -y
+        vswhere -latest -property installationPath | Out-String -OutVar vsPath
+        $vsPath = $vsPath.Trim()
+        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
+        Start-Process $installer -ArgumentList "modify --installPath `"$vsPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
+      shell: powershell
       
     - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x64 -p:platformToolset=v143
+      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x64
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
@@ -54,10 +58,14 @@ jobs:
 
     - name: Install MFC
       run: |
-        choco install visualstudio2022-workload-vctools --package-parameters "--add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -y
+        vswhere -latest -property installationPath | Out-String -OutVar vsPath
+        $vsPath = $vsPath.Trim()
+        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
+        Start-Process $installer -ArgumentList "modify --installPath `"$vsPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
+      shell: powershell
       
     - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x86 -p:platformToolset=v143
+      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x86
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
@@ -91,10 +99,14 @@ jobs:
 
     - name: Install MFC
       run: |
-        choco install visualstudio2022-workload-vctools --package-parameters "--add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -y
+        vswhere -latest -property installationPath | Out-String -OutVar vsPath
+        $vsPath = $vsPath.Trim()
+        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
+        Start-Process $installer -ArgumentList "modify --installPath `"$vsPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
+      shell: powershell
       
     - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=ARM64EC -p:platformToolset=v143
+      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=ARM64EC
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
