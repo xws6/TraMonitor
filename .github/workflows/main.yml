@@ -7,24 +7,16 @@ on:
 jobs:
 
   x64_build:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - uses: actions/checkout@v3
       
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
-
-    - name: Install MFC
-      run: |
-        vswhere -latest -property installationPath | Out-String -OutVar vsPath
-        $vsPath = $vsPath.Trim()
-        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
-        Start-Process $installer -ArgumentList "modify --installPath `"$vsPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
-      shell: powershell
       
     - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x64
+      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x64 -p:platformToolset=v143
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
@@ -48,24 +40,16 @@ jobs:
         path: Bin/x64/Release (lite)/*.pdb
 
   x86_build:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - uses: actions/checkout@v3
       
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
-
-    - name: Install MFC
-      run: |
-        vswhere -latest -property installationPath | Out-String -OutVar vsPath
-        $vsPath = $vsPath.Trim()
-        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
-        Start-Process $installer -ArgumentList "modify --installPath `"$vsPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
-      shell: powershell
       
     - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x86
+      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=x86 -p:platformToolset=v143
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
@@ -89,24 +73,16 @@ jobs:
         path: Bin/Release (lite)/*.pdb
 
   arm64ec_build:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - uses: actions/checkout@v3
       
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v2
-
-    - name: Install MFC
-      run: |
-        vswhere -latest -property installationPath | Out-String -OutVar vsPath
-        $vsPath = $vsPath.Trim()
-        $installer = join-path ${env:ProgramFiles(x86)} "Microsoft Visual Studio\Installer\vs_installer.exe"
-        Start-Process $installer -ArgumentList "modify --installPath `"$vsPath`" --add Microsoft.VisualStudio.Component.VC.ATLMFC --passive --norestart" -Wait
-      shell: powershell
       
     - name: Run msbuild
-      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=ARM64EC
+      run: msbuild TrafficMonitor_Lite.sln -p:configuration="Release (lite)" -p:platform=ARM64EC -p:platformToolset=v143
       
     - name: Get current time
       uses: josStorer/get-current-time@v2.0.2
